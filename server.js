@@ -10,8 +10,8 @@ app.use(express.json()); // Parsa JSON-baserade inkommande förfrågningar
 
 // Konstanter för Notion API
 const NOTION_API_BASE_URL = 'https://api.notion.com/v1'; // Bas URL för Notion API
-const NOTION_API_KEY = 'API NYCKEL'; // Din Notion API-nyckel (bör hanteras säkrare i praktiken)
-const NOTION_DATABASE_IDS = ['0cb39c6042c547a988326a168176d6fe', 'b86de2e54b4c4e7789b07dc308489e4d', 'fba06eb24c9241e585ab41aaae362e31'];
+const NOTION_API_KEY = 'secret_8ESoOICHaglvbEsc0AI4LYanbfQdVEsNdEXWdHN7pp4'; // Din Notion API-nyckel (bör hanteras säkrare i praktiken)
+const NOTION_DATABASE_IDS = ['0cb39c6042c547a988326a168176d6fe', 'b86de2e54b4c4e7789b07dc308489e4d', 'fba06eb24c9241e585ab41aaae362e31', 'ecf2a1f577244a539f6bda8cefbc8c5f'];
 
 // Definiera en POST endpoint för att interagera med Notion API
 app.post('/api/notion', async (req, res) => {
