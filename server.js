@@ -10,47 +10,94 @@ app.use(express.json()); // Parsa JSON-baserade inkommande förfrågningar
 
 // Konstanter för Notion API
 const NOTION_API_BASE_URL = 'https://api.notion.com/v1'; // Bas URL för Notion API
-const NOTION_API_KEY = 'secret_8ESoOICHaglvbEsc0AI4LYanbfQdVEsNdEXWdHN7pp4'; // Din Notion API-nyckel (bör hanteras säkrare i praktiken)
-const NOTION_DATABASE_IDS = ['0cb39c6042c547a988326a168176d6fe', 'b86de2e54b4c4e7789b07dc308489e4d', 'fba06eb24c9241e585ab41aaae362e31', 'ecf2a1f577244a539f6bda8cefbc8c5f'];
+const NOTION_API_KEY = process.env.NOTION_API_KEY; // Din Notion API-nyckel (bör hanteras säkrare i praktiken)
 
-// Definiera en POST endpoint för att interagera med Notion API
-app.post('/api/notion', async (req, res) => {
+app.post('/api/notion/projects', async (req, res) => {
+  const ID = '0cb39c6042c547a988326a168176d6fe';
+  
   try {
-    const promises = NOTION_DATABASE_IDS.map(Id =>
-      axios.post(`${NOTION_API_BASE_URL}/databases/${Id}/query`, req.body, {
-        headers: {
-          'Authorization': `Bearer ${NOTION_API_KEY}`,
-          'Notion-Version': '2022-06-28',
-        }
-      })
-    );
-
-    const responses = await Promise.all(promises); 
-
-    const aggregatedData = responses.map(response => response.data);
-
-    res.json(aggregatedData);
-  } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Internal server error' });
-  }
-});
-
-// Definiera en POST endpoint för att interagera med Notion API
-app.post('/api/notion/send', async (req, res) => {
-  try {
-    axios.post(`${NOTION_API_BASE_URL}/pages`, req.body, {
+    const response = await axios.post(`${NOTION_API_BASE_URL}/databases/${ID}/query`, req.body, {
       headers: {
         'Authorization': `Bearer ${NOTION_API_KEY}`,
         'Notion-Version': '2022-06-28',
       }
     });
 
-    const responses = await Promise.all(promises); 
+    res.json(response.data);
 
-    const aggregatedData = responses.map(response => response.data);
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
-    res.json(aggregatedData);
+app.post('/api/notion/people', async (req, res) => {
+  const ID = 'b86de2e54b4c4e7789b07dc308489e4d';
+  
+  try {
+    const response = await axios.post(`${NOTION_API_BASE_URL}/databases/${ID}/query`, req.body, {
+      headers: {
+        'Authorization': `Bearer ${NOTION_API_KEY}`,
+        'Notion-Version': '2022-06-28',
+      }
+    });
+
+    res.json(response.data);
+
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+app.post('/api/notion/timereports', async (req, res) => {
+  const ID = 'fba06eb24c9241e585ab41aaae362e31';
+  
+  try {
+    const response = await axios.post(`${NOTION_API_BASE_URL}/databases/${ID}/query`, req.body, {
+      headers: {
+        'Authorization': `Bearer ${NOTION_API_KEY}`,
+        'Notion-Version': '2022-06-28',
+      }
+    });
+
+    res.json(response.data);
+
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+app.post('/api/notion/logs', async (req, res) => {
+  const ID = 'ecf2a1f577244a539f6bda8cefbc8c5f';
+  
+  try {
+    const response = await axios.post(`${NOTION_API_BASE_URL}/databases/${ID}/query`, req.body, {
+      headers: {
+        'Authorization': `Bearer ${NOTION_API_KEY}`,
+        'Notion-Version': '2022-06-28',
+      }
+    });
+
+    res.json(response.data);
+
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+app.post('/api/notion/send', async (req, res) => {
+  try {
+    const response = await axios.post(`${NOTION_API_BASE_URL}/pages`, req.body, {
+      headers: {
+        'Authorization': `Bearer ${NOTION_API_KEY}`,
+        'Notion-Version': '2022-06-28',
+      }
+    });
+
+    res.status(200).json({ message: 'OK'});
   } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Internal server error' });
