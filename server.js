@@ -15,7 +15,7 @@ const NOTION_API_BASE_URL = 'https://api.notion.com/v1'; // Bas URL för Notion 
 const NOTION_API_KEY = process.env.NOTION_API_KEY; // Din Notion API-nyckel (bör hanteras säkrare i praktiken)
 ////Secret Key///
 const notion = new Client({
-  auth: "secret_dWSxoT2WwSZwkyYfkfV4QdklJjEp0dyOJzL0ngR4iY6",
+  auth: NOTION_API_KEY,
 });
 
 //////////////////////// Login//////////////////////////////
