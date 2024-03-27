@@ -133,12 +133,30 @@ app.post('/api/notion/send', async (req, res) => {
       }
     });
 
-    res.status(200).json({ message: 'OK'});
+    res.status(200).json({ message: 'OK' });
   } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Internal server error' });
   }
 });
+
+app.post('/api/notion/update', async (req, res) => {
+  const ID = req.body.pageId;
+  
+  try {
+    const response = await axios.patch(`${NOTION_API_BASE_URL}/pages/${ID}`, req.body.page, {
+      headers: {
+        'Authorization': `Bearer ${NOTION_API_KEY}`,
+        'Notion-Version': '2022-06-28',
+      }
+    });
+
+    res.status(200).json({ message: 'OK' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+})
 
 // Definiera serverporten (från miljövariabler eller standardport 3001)
 const PORT = process.env.PORT || 3001;
